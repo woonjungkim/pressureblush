@@ -70,6 +70,17 @@ a{color:var(--teal)}
 .video .tag{position:relative;z-index:1;font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;
   color:#f3ede2;background:rgba(33,53,57,.7);border:1px solid rgba(243,237,226,.25);padding:9px 16px;border-radius:999px}
 .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt-facade{position:absolute;inset:0;background-size:cover;background-position:center;cursor:pointer;
+  transition:filter .25s ease}
+.yt-facade:hover{filter:brightness(1.04)}
+.yt-facade:focus-visible{outline:2px solid var(--rose);outline-offset:-2px}
+.yt-play{position:absolute;left:14px;bottom:24px;width:64px;height:64px;
+  filter:drop-shadow(0 2px 6px rgba(20,12,10,.25));transition:transform .25s ease}
+.yt-facade:hover .yt-play{transform:scale(1.1)}
+.yt-play svg{display:block;width:100%;height:100%}
+.yt-play svg path{fill:rgb(241,239,227);stroke:rgb(241,239,227);
+  stroke-width:9;stroke-linejoin:round;stroke-linecap:round;transition:fill .25s ease,stroke .25s ease}
+.yt-facade:hover .yt-play svg path{fill:rgb(241,239,227);stroke:rgb(241,239,227)}
 .cap{font-family:var(--body);font-size:14.5px;color:var(--faint);text-align:center;margin-top:12px;line-height:1.6}
 
 
@@ -151,10 +162,11 @@ a:focus-visible,.pill:focus-visible,.copy:focus-visible{outline:2px solid var(--
   <div class="wrap">
     <div class="teaser">
       <div class="video">
-        <iframe src="https://www.youtube.com/embed/xfMTpn4fzM0"
-                title="PressureBlush: SIGGRAPH 2026"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen></iframe>
+        <div class="yt-facade" data-id="xfMTpn4fzM0" role="button" tabindex="0"
+             aria-label="Play video: PressureBlush: SIGGRAPH 2026"
+             style="background-image:url('https://i.ytimg.com/vi/xfMTpn4fzM0/maxresdefault.jpg')">
+          <span class="yt-play" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M25 19L47 32L25 45Z"/></svg></span>
+        </div>
       </div>
       <p class="cap">Blanching and hyperemia generated during self-contact from neural deformation signals, evaluated entirely in shader.</p>
     </div>
@@ -278,6 +290,21 @@ a:focus-visible,.pill:focus-visible,.copy:focus-visible{outline:2px solid var(--
   function queue(){if(!raf)raf=requestAnimationFrame(apply);}
   document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;active=true;queue();});
   document.addEventListener('mouseleave',function(){active=false;queue();});
+})();
+(function(){
+  function load(f){
+    var id=f.getAttribute('data-id');
+    var ifr=document.createElement('iframe');
+    ifr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
+    ifr.title='PressureBlush: SIGGRAPH 2026';
+    ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    ifr.allowFullscreen=true;
+    f.replaceWith(ifr);
+  }
+  document.querySelectorAll('.yt-facade').forEach(function(f){
+    f.addEventListener('click',function(){load(f);});
+    f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();load(f);}});
+  });
 })();
 </script>
 </body>
