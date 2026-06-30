@@ -64,7 +64,7 @@ a{color:var(--teal)}
 .teaser{margin:0}
 .video{
   position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;
-  border:1px solid var(--hair-strong);background:#15110f center/cover no-repeat;
+  border:0;background:#15110f center/cover no-repeat;
   display:flex;align-items:center;justify-content:center;
 }
 .video .tag{position:relative;z-index:1;font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;
@@ -75,7 +75,7 @@ a{color:var(--teal)}
 .yt-facade:hover{filter:brightness(1.04)}
 .yt-facade:focus-visible{outline:2px solid var(--rose);outline-offset:-2px}
 .yt-play{position:absolute;left:14px;bottom:24px;width:64px;height:64px;
-  filter:drop-shadow(0 2px 6px rgba(20,12,10,.25));transition:transform .25s ease}
+  transition:transform .25s ease}
 .yt-facade:hover .yt-play{transform:scale(1.1)}
 .yt-play svg{display:block;width:100%;height:100%}
 .yt-play svg path{fill:rgb(241,239,227);stroke:rgb(241,239,227);
